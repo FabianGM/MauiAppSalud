@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="MauiAppSalud.Views.PerfilProfesionalesPage" BackgroundColor="{DynamicResource PageBackgroundColor}" Title="Buscar Profesionales">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <!-- Barra de búsqueda y filtros -->
+            <Grid ColumnDefinitions="*,*,*,Auto" RowDefinitions="Auto" VerticalOptions="Start">
+                <!-- Cuadro de búsqueda -->
+                <Entry Placeholder="Buscar" Text="{Binding TextoBusqueda}" HorizontalOptions="FillAndExpand" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="{DynamicResource EntryBackgroundColor}" TextColor="{DynamicResource EntryTextColor}" />
+                <!-- Botón de búsqueda -->
+                <Button Text="Buscar" Command="{Binding ComandoBuscar}" BackgroundColor="{DynamicResource ButtonBackgroundColor}" TextColor="{DynamicResource ButtonTextColor}" FontAttributes="Bold" Grid.Column="2" />
+            </Grid>
+            <!-- Filtros -->
+            <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto" VerticalOptions="Start">
+                <!-- Especialidad -->
+                <Picker Title="Especialidad" ItemsSource="{Binding Especialidades}" SelectedItem="{Binding EspecialidadSeleccionada}" HorizontalOptions="FillAndExpand" Grid.Column="0" />
+                <!-- Departamento -->
+                <Picker Title="Departamento" ItemsSource="{Binding Departamentos}" SelectedItem="{Binding DepartamentoSeleccionado}" HorizontalOptions="FillAndExpand" Grid.Column="1" />
+                <!-- Ciudad -->
+                <Picker Title="Ciudad" ItemsSource="{Binding Ciudades}" SelectedItem="{Binding CiudadSeleccionada}" HorizontalOptions="FillAndExpand" Grid.Column="2" />
+            </Grid>
+            <!-- Lista de profesionales -->
+            <CollectionView ItemsSource="{Binding Profesionales}" VerticalOptions="FillAndExpand" BackgroundColor="{DynamicResource CollectionViewBackgroundColor}" Margin="0,20,0,0">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10" Margin="10" CornerRadius="10" BackgroundColor="{DynamicResource CardBackgroundColor}" HasShadow="True">
+                            <VerticalStackLayout HorizontalOptions="Center">
+                                <!-- Imagen del profesional -->
+                                <Image Source="{Binding FotoPerfil}" WidthRequest="100" HeightRequest="100" Aspect="AspectFill" HorizontalOptions="Center" />
+                                <!-- Nombre del profesional -->
+                                <Label Text="{Binding NombreCompleto}" FontAttributes="Bold" FontSize="Medium" TextColor="{DynamicResource PrimaryTextColor}" HorizontalOptions="Center" />
+                                <!-- Botón de ver más -->
+                                <Button Text="Ver más..." Command="{Binding VerMasCommand}" BackgroundColor="Transparent" TextColor="{DynamicResource ButtonTextColor}" FontAttributes="Bold" HorizontalOptions="Center" />
+                                <!-- Especialidad del profesional -->
+                                <Label Text="{Binding Especialidad}" FontSize="Small" TextColor="{DynamicResource SecondaryTextColor}" HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

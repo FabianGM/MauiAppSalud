@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppSalud.Views.UsuarioPage"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             Title="Registro de Usuario">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="20">
+
+            <!-- Titulo principal -->
+            <Label Text="Registro de Usuario"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="{DynamicResource PrimaryTextColor}" />
+
+            <!-- Campo de entrada para el nombre -->
+            <Entry Placeholder="Nombre"
+                   Text="{Binding NuevoUsuario.Nombre}"
+                   PlaceholderColor="{DynamicResource PlaceholderColor}"
+                   TextColor="{DynamicResource EntryTextColor}"
+                   BackgroundColor="{DynamicResource EntryBackgroundColor}"
+                   HorizontalOptions="FillAndExpand"
+                   FontSize="Medium" />
+
+            <!-- Campo de entrada para el correo electronico -->
+            <Entry Placeholder="Correo Electronico"
+                   Text="{Binding NuevoUsuario.CorreoElectronico}"
+                   PlaceholderColor="{DynamicResource PlaceholderColor}"
+                   TextColor="{DynamicResource EntryTextColor}"
+                   BackgroundColor="{DynamicResource EntryBackgroundColor}"
+                   Keyboard="Email"
+                   HorizontalOptions="FillAndExpand"
+                   FontSize="Medium" />
+
+            <!-- Campo de entrada para la clave -->
+            <Entry Placeholder="Clave"
+                   Text="{Binding NuevoUsuario.Clave}"
+                   IsPassword="True"
+                   PlaceholderColor="{DynamicResource PlaceholderColor}"
+                   TextColor="{DynamicResource EntryTextColor}"
+                   BackgroundColor="{DynamicResource EntryBackgroundColor}"
+                   HorizontalOptions="FillAndExpand"
+                   FontSize="Medium" />
+
+            <!-- Boton para crear un nuevo usuario -->
+            <Button Text="Crear Usuario"
+                    Command="{Binding CrearUsuarioCommand}"
+                    BackgroundColor="{DynamicResource ButtonBackgroundColor}"
+                    TextColor="{DynamicResource ButtonTextColor}"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center" />
+
+            <!-- Titulo de la seccion de usuarios registrados -->
+            <Label Text="Usuarios Registrados"
+                   FontSize="Medium"
+                   FontAttributes="Bold"
+                   TextColor="{DynamicResource PrimaryTextColor}"
+                   Margin="0,20,0,10" />
+
+            <!-- Lista de usuarios registrados -->
+            <CollectionView ItemsSource="{Binding Usuarios}"
+                            BackgroundColor="{DynamicResource CollectionViewBackgroundColor}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10"
+                               Margin="5"
+                               CornerRadius="10"
+                               BackgroundColor="{DynamicResource CardBackgroundColor}"
+                               HasShadow="True">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Nombre}"
+                                       FontAttributes="Bold"
+                                       TextColor="{DynamicResource PrimaryTextColor}"
+                                       FontSize="Medium" />
+                                <Label Text="{Binding CorreoElectronico}"
+                                       TextColor="{DynamicResource SecondaryTextColor}"
+                                       FontSize="Small" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

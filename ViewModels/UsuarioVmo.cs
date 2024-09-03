@@ -1,71 +1,50 @@
-﻿using MauiAppSalud.Models;
+﻿using MauiAppSalud.Controllers;
+using MauiAppSalud.Models;
+using MauiAppSalud.Services;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace MauiAppSalud.ViewModels
 {
+    /// <summary>
+    /// ViewModel para gestionar los usuarios en la aplicacion.
+    /// </summary>
     public class UsuarioVmo
     {
-        private string nombre;
-        private string correoElectronico;
-        private string clave;
+        private readonly UsuarioController cUsuario;
 
-        public string Nombre
-        {
-            get => nombre;
-            set => SetProperty(ref nombre, value);
-        }
+        /// <summary>
+        /// Modelo que contiene los datos del usuario actual.
+        /// Se utiliza para el enlace de datos en la vista.
+        /// </summary>
+        public UsuarioMod NuevoUsuario { get; set; }
 
-        public string CorreoElectronico
-        {
-            get => correoElectronico;
-            set => SetProperty(ref correoElectronico, value);
-        }
+        /// <summary>
+        /// Lista de usuarios obtenida del controlador.
+        /// Esta lista se vincula directamente a la vista para mostrar los usuarios registrados.
+        /// </summary>
+        public ObservableCollection<UsuarioMod> Usuarios => cUsuario.ObtenerUsuarios();
 
-        public string Clave
-        {
-            get => clave;
-            set => SetProperty(ref clave, value);
-        }
-
-        public ObservableCollection<UsuarioMod> Usuarios { get; } = new ObservableCollection<UsuarioMod>();
-
+        /// <summary>
+        /// Comando para crear un nuevo usuario.
+        /// Este comando se vincula a la accion del usuario en la interfaz (como un boton).
+        /// </summary>
         public ICommand CrearUsuarioCommand { get; }
 
-        public UsuarioVmo() => CrearUsuarioCommand = new Command(OnCrearUsuario);
-
-        private void OnCrearUsuario()
+        /// <summary>
+        /// Constructor del ViewModel.
+        /// Inicializa el controlador de usuarios y los comandos.
+        /// </summary>
+        public UsuarioVmo()
         {
-            Usuarios.Add(new UsuarioMod
+            cUsuario = new UsuarioController(new SrvUsuario());
+            NuevoUsuario = new UsuarioMod();
+
+            CrearUsuarioCommand = new Command(() =>
             {
-                Nombre = Nombre,
-                CorreoElectronico = CorreoElectronico,
-                Clave = Clave
+                cUsuario.AgregarUsuario(NuevoUsuario);
+                NuevoUsuario = new UsuarioMod();
             });
-
-            // Limpiar campos
-            Nombre = string.Empty;
-            CorreoElectronico = string.Empty;
-            Clave = string.Empty;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(backingStore, value))
-                return false;
-
-            backingStore = value;
-            OnPropertyChanged(propertyName);
-            return true;
         }
     }
 }
