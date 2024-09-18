@@ -3,74 +3,155 @@ using MauiAppSalud.Models;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using MauiAppSalud.Services;
+using Newtonsoft.Json;
 
 namespace MauiAppSalud.ViewModels
 {
     /// <summary>
-    /// ViewModel para manejar la logica de busqueda de profesionales.
+    /// ViewModel para gestionar la logica de busqueda y filtrado de profesionales.
     /// </summary>
     public class ProfesionalVmo : BaseVmo
     {
+        // Controlador para manejar la logica relacionada con los profesionales
         private readonly ProfesionalController cProfesional;
 
+        // Campo privado que almacena el departamento seleccionado por el usuario.
+        private string? _departamentoSeleccionado;
+
+        // Campo privado que almacena la ciudad seleccionada por el usuario.
+        private string? _ciudadSeleccionada;
+
+        // Campo privado que almacena la especialidad seleccionada por el usuario.
+        private string? _especialidadSeleccionada;
+
         /// <summary>
-        /// Coleccion de especialidades disponibles para filtrar.
+        /// Coleccion de especialidades disponibles para el filtro.
         /// </summary>
         public ObservableCollection<string>? Especialidades { get; }
 
         /// <summary>
-        /// Especialidad seleccionada actualmente en el filtro.
-        /// </summary>
-        public string? EspecialidadSeleccionada { get; set; }
-
-        /// <summary>
-        /// Coleccion de departamentos disponibles para filtrar.
+        /// Coleccion de departamentos disponibles para el filtro.
         /// </summary>
         public ObservableCollection<string>? Departamentos { get; }
 
         /// <summary>
-        /// Departamento seleccionado actualmente en el filtro.
-        /// </summary>
-        public string? DepartamentoSeleccionado { get; set; }
-
-        /// <summary>
-        /// Coleccion de ciudades disponibles para filtrar.
+        /// Coleccion de ciudades disponibles para el filtro.
         /// </summary>
         public ObservableCollection<string>? Ciudades { get; }
 
         /// <summary>
-        /// Ciudad seleccionada actualmente en el filtro.
-        /// </summary>
-        public string? CiudadSeleccionada { get; set; }
-
-        /// <summary>
-        /// Lista de profesionales obtenida del controlador.
-        /// Esta lista se vincula directamente a la vista para mostrar los profesionales registrados.
+        /// Coleccion de profesionales obtenidos segun los filtros aplicados.
         /// </summary>
         public ObservableCollection<ProfesionalMod> Profesionales { get; set; }
 
         /// <summary>
-        /// Texto de busqueda ingresado por el usuario.
+        /// Texto de busqueda ingresado por el usuario para buscar profesionales por nombre.
         /// </summary>
         public string? TextoBusqueda { get; set; }
 
         /// <summary>
-        /// Comando que se ejecuta cuando se presiona el boton de buscar.
+        /// Comando que se ejecuta cuando el usuario presiona el boton de buscar.
         /// </summary>
         public ICommand? ComandoBuscar { get; }
 
         /// <summary>
-        /// Constructor por defecto que inicializa los datos y comandos.
+        /// Comando que se ejecuta cuando el usuario presiona el boton para ver mas detalles del profesional.
+        /// </summary>
+        public ICommand? VerMasCommand { get; }
+
+        /// <summary>
+        /// Comando que se ejecuta para limpiar el filtro de especialidad.
+        /// </summary>
+        public ICommand ClearEspecialidadCommand { get; }
+
+        /// <summary>
+        /// Comando que se ejecuta para limpiar el filtro de departamento.
+        /// </summary>
+        public ICommand ClearDepartamentoCommand { get; }
+
+        /// <summary>
+        /// Comando que se ejecuta para limpiar el filtro de ciudad.
+        /// </summary>
+        public ICommand ClearCiudadCommand { get; }
+
+        /// <summary>
+        /// Propiedad que almacena la especialidad seleccionada por el usuario.
+        /// </summary>
+        public string? EspecialidadSeleccionada
+        {
+            get => _especialidadSeleccionada;
+            set
+            {
+                _especialidadSeleccionada = value;
+                OnPropertyChanged(nameof(EspecialidadSeleccionada));
+            }
+        }
+
+        /// <summary>
+        /// Propiedad que almacena el departamento seleccionado por el usuario.
+        /// </summary>
+        public string? DepartamentoSeleccionado
+        {
+            get => _departamentoSeleccionado;
+            set
+            {
+                _departamentoSeleccionado = value;
+                OnPropertyChanged(nameof(DepartamentoSeleccionado));
+            }
+        }
+
+        /// <summary>
+        /// Propiedad que almacena la ciudad seleccionada por el usuario.
+        /// </summary>
+        public string? CiudadSeleccionada
+        {
+            get => _ciudadSeleccionada;
+            set
+            {
+                _ciudadSeleccionada = value;
+                OnPropertyChanged(nameof(CiudadSeleccionada));
+            }
+        }
+
+        /// <summary>
+        /// Constructor que inicializa los comandos y carga las listas de especialidades, departamentos y ciudades.
         /// </summary>
         public ProfesionalVmo()
         {
             cProfesional = new ProfesionalController(new SrvProfesional());
 
-            Especialidades = new ObservableCollection<string> { "Oftalmología", "Medicina General", "Pediatría" };
-            Departamentos = new ObservableCollection<string> { "Antioquia", "Cundinamarca", "Valle del Cauca" };
-            Ciudades = new ObservableCollection<string> { "Medellín", "Bogotá", "Cali" };
+            // Inicializacion de las colecciones de filtros
+            Especialidades = cProfesional.ObtenerEspecialidades();
+            Departamentos = cProfesional.ObtenerDepartamentos();
+            Ciudades = cProfesional.ObtenerCiudades();
             Profesionales = cProfesional.ObtenerProfesionales();
+
+            // Inicializacion de comandos
             ComandoBuscar = new Command(BuscarProfesionales);
+
+            VerMasCommand = new Command<ProfesionalMod>(async (parametros) =>
+            {
+                await Shell.Current.GoToAsync($"detallesProfesional?idProfesional={parametros.IdProfesional}&nombre={parametros.NombreCompleto}&especialidad={parametros.Especialidad}&fotoPerfil={parametros.FotoPerfil}");
+                Preferences.Set("datosprofesional", JsonConvert.SerializeObject(parametros));
+            });
+
+            ClearEspecialidadCommand = new Command(() =>
+            {
+                EspecialidadSeleccionada = null;
+                ComandoBuscar.Execute(null);
+            });
+
+            ClearDepartamentoCommand = new Command(() =>
+            {
+                DepartamentoSeleccionado = null;
+                ComandoBuscar.Execute(null);
+            });
+
+            ClearCiudadCommand = new Command(() =>
+            {
+                CiudadSeleccionada = null;
+                ComandoBuscar.Execute(null);
+            });
         }
 
         /// <summary>

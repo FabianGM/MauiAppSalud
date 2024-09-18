@@ -1,10 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using MauiAppSalud.Services;
-using MauiAppSalud.Controllers;
+﻿using MauiAppSalud.Controllers;
 using MauiAppSalud.Interfaces;
+using MauiAppSalud.Services;
 using Microsoft.Extensions.Logging;
-using MauiAppSalud.ViewModels;
-using MauiAppSalud.Views;
 
 namespace MauiAppSalud
 {
@@ -25,7 +22,8 @@ namespace MauiAppSalud
             builder.Services.AddSingleton<IEjecutorSql, SrvEjecutorSql>();
             builder.Services.AddSingleton<IProfesional, SrvProfesional>();
             builder.Services.AddTransient<ProfesionalController>();
-            builder.Services.AddSingleton <IUsuario,SrvUsuario >();
+            builder.Services.AddSingleton <IUsuario,SrvUsuario>();
+            builder.Services.AddSingleton<IFechas, SrvFechas>();
 
 #if DEBUG
             builder.Logging.AddDebug();

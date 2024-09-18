@@ -6,6 +6,11 @@
     public class ProfesionalMod
     {
         /// <summary>
+        /// Id del profesional
+        /// </summary>
+        public int IdProfesional { get; set; }
+
+        /// <summary>
         /// Nombre completo del profesional.
         /// </summary>
         public string? NombreCompleto { get; set; }

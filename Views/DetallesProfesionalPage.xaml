@@ -1,0 +1,71 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppSalud.Views.DetallesProfesionalPage"
+             Title="Detalles del Profesional"
+             BackgroundColor="White">
+    <ScrollView>
+        <VerticalStackLayout Padding="20">
+            <!-- Imagen del profesional -->
+            <Image x:Name="FotoPerfilImage"
+                   WidthRequest="120"
+                   HeightRequest="120"
+                   Aspect="AspectFill"
+                   HorizontalOptions="Center"
+                   Margin="0,10" />
+            <!-- Nombre y especialidad del profesional -->
+            <Label x:Name="NombreCompletoLabel"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,10" />
+            <Label x:Name="EspecialidadLabel"
+                   FontSize="Medium"
+                   TextColor="Gray"
+                   HorizontalOptions="Center"
+                   Margin="0,5" />
+            <!-- Lista de servicios disponibles -->
+            <CollectionView ItemsSource="{Binding ServiciosDisponibles}"
+                 VerticalOptions="FillAndExpand"
+                 BackgroundColor="{DynamicResource CollectionViewBackgroundColor}"
+                 Margin="0,20,0,0">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10"
+                    Margin="10"
+                    CornerRadius="10"
+                    BackgroundColor="{DynamicResource CardBackgroundColor}"
+                    HasShadow="True">
+                            <VerticalStackLayout HorizontalOptions="Center">
+                            <Label Text="{Binding NombreServicio}"
+                            FontAttributes="Bold"
+                            FontSize="Medium"
+                            TextColor="{DynamicResource PrimaryTextColor}"
+                            HorizontalOptions="Center" />
+                             <Label Text="{Binding Duracion}"
+                            FontAttributes="Bold"
+                            FontSize="Medium"
+                            TextColor="{DynamicResource PrimaryTextColor}"
+                            HorizontalOptions="Center" />
+                                <Label Text="{Binding Precio, StringFormat='COP{0:N0}'}"
+                            FontSize="Small"
+                            TextColor="Gray"
+                            HorizontalOptions="End" />
+                            <Button Text="Continuar"
+                            BackgroundColor="Blue"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ComandoContinuar}"
+                            CommandParameter="{Binding .}" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

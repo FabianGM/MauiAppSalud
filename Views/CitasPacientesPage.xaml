@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppSalud.Views.CitasPacientesPage"
+             Title="Citas Pacientes">
+    <VerticalStackLayout Padding="20">
+
+        <!-- Etiqueta de seleccion de fecha -->
+        <Label Text="Selecciona la fecha de tu cita" 
+               FontSize="Large"
+               FontAttributes="Bold"
+               HorizontalOptions="Center" />
+
+        <!-- Calendario para seleccionar la fecha -->
+        <DatePicker x:Name="FechaCitaPicker"
+                    Date="{Binding FechaSeleccionada}"
+                    MinimumDate="{Binding FechaMinima}"
+                    MaximumDate="{Binding FechaMaxima}" />
+
+        <!-- Etiqueta para seleccionar la hora -->
+        <Label Text="Selecciona la hora de tu cita" 
+               FontSize="Large"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               Margin="0,20,0,0"/>
+
+        <Picker x:Name="HoraCitaPicker"
+        Title="Seleccione una hora"
+        HorizontalOptions="Center" />
+
+        <!-- Formato de 24 horas -->
+
+        <!-- Boton para confirmar la cita -->
+        <Button Text="Confirmar Cita" 
+                Command="{Binding ConfirmarCitaCommand}" 
+                BackgroundColor="Blue"
+                TextColor="White"
+                FontAttributes="Bold"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Margin="0,20,0,0" />
+    </VerticalStackLayout>
+</ContentPage>

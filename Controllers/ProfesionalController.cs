@@ -9,14 +9,14 @@ namespace MauiAppSalud.Controllers
     /// </summary>
     public class ProfesionalController
     {
-        private readonly IProfesional profesionalService;
+        private readonly IProfesional sProfesional;
 
         /// <summary>
         /// Constructor que inyecta el servicio de profesionales.
         /// </summary>
         public ProfesionalController(IProfesional service)
         {
-            profesionalService = service;
+            sProfesional = service;
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace MauiAppSalud.Controllers
         /// </summary>
         public ObservableCollection<ProfesionalMod> ObtenerProfesionales()
         {
-            return profesionalService.ObtenerProfesionales();
+            return sProfesional.ObtenerProfesionales();
         }
 
         /// <summary>
@@ -32,7 +32,34 @@ namespace MauiAppSalud.Controllers
         /// </summary>
         public ObservableCollection<ProfesionalMod> FiltrarProfesionales(string especialidad, string departamento, string ciudad, string textoBusqueda)
         {
-            return profesionalService.FiltrarProfesionales(especialidad, departamento, ciudad, textoBusqueda);
+            return sProfesional.FiltrarProfesionales(especialidad, departamento, ciudad, textoBusqueda);
+        }
+
+        /// <summary>
+        /// Obtiene todos los departamentos.
+        /// </summary>
+        /// <returns>Lista de nombres de departamentos.</returns>
+        public ObservableCollection<string> ObtenerDepartamentos()
+        {
+            return sProfesional.ObtenerDepartamentos();
+        }
+
+        /// <summary>
+        /// Obtiene todas las especialidades.
+        /// </summary>
+        /// <returns>Lista de nombres de especialidades.</returns>
+        public ObservableCollection<string> ObtenerEspecialidades()
+        {
+            return sProfesional.ObtenerEspecialidades();
+        }
+
+        /// <summary>
+        /// Obtiene todas las ciudades.
+        /// </summary>
+        /// <returns>Lista de nombres de ciudades.</returns>
+        public ObservableCollection<string> ObtenerCiudades()
+        {
+            return sProfesional.ObtenerCiudades();
         }
     }
 }

@@ -35,11 +35,12 @@ namespace MauiAppSalud.Services
             {
                 profesionales.Add(new ProfesionalMod
                 {
-                    NombreCompleto = lectura.GetString("NombreCompleto"),
-                    Especialidad = lectura.GetString("Especialidad"),
-                    FotoPerfil = lectura.GetString("FotoPerfil"),
-                    Departamento = lectura.GetString("Departamento"),
-                    Ciudad = lectura.GetString("Ciudad")
+                    IdProfesional = lectura.GetInt32("id_profesionales"),
+                    NombreCompleto = lectura.GetString("nombre_completo"),
+                    Especialidad = lectura.GetString("especialidad"),
+                    FotoPerfil = lectura.GetString("foto_perfil"),
+                    Departamento = lectura.GetString("departamento"),
+                    Ciudad = lectura.GetString("ciudad")
                 });
             }
 
@@ -59,13 +60,82 @@ namespace MauiAppSalud.Services
         {
             IQueryable<ProfesionalMod> profesionalFiltro = ObtenerProfesionales().AsQueryable();
 
+            // Filtrar por especialidad, departamento y ciudad como hasta ahora
             profesionalFiltro = profesionalFiltro.Where(oProfesional =>
                 (string.IsNullOrWhiteSpace(especialidad) || oProfesional.Especialidad == especialidad) &&
                 (string.IsNullOrWhiteSpace(departamento) || oProfesional.Departamento == departamento) &&
-                (string.IsNullOrWhiteSpace(ciudad) || oProfesional.Ciudad == ciudad) &&
-                (string.IsNullOrWhiteSpace(textoBusqueda) || (oProfesional.NombreCompleto ?? Constantes.VALOR_VACIO).Contains(textoBusqueda, StringComparison.OrdinalIgnoreCase)));
+                (string.IsNullOrWhiteSpace(ciudad) || oProfesional.Ciudad == ciudad));
+
+            // Filtro para aplicar búsqueda individualmente a cada campo si textoBusqueda no está vacío
+            if (!string.IsNullOrWhiteSpace(textoBusqueda))
+            {
+                profesionalFiltro = profesionalFiltro.Where(oProfesional =>
+                    (oProfesional.NombreCompleto ?? Constantes.VALOR_VACIO).Contains(textoBusqueda, StringComparison.OrdinalIgnoreCase) ||
+                    (oProfesional.Especialidad ?? Constantes.VALOR_VACIO).Contains(textoBusqueda, StringComparison.OrdinalIgnoreCase) ||
+                    (oProfesional.Departamento ?? Constantes.VALOR_VACIO).Contains(textoBusqueda, StringComparison.OrdinalIgnoreCase) ||
+                    (oProfesional.Ciudad ?? Constantes.VALOR_VACIO).Contains(textoBusqueda, StringComparison.OrdinalIgnoreCase)
+                );
+            }
 
             return new ObservableCollection<ProfesionalMod>(profesionalFiltro.ToList());
+        }
+
+
+        /// <summary>
+        /// Carga las ciudades desde la base de datos utilizando un procedimiento almacenado.
+        /// </summary>
+        /// <returns>Una coleccion observable de nombres de ciudades.</returns>
+        public ObservableCollection<string> ObtenerCiudades()
+        {
+            ObservableCollection<string> ciudades = new ObservableCollection<string>();
+
+            MySqlDataReader lectura = ejecutorSQL.EjecutarProcedimientoAlmacenado("ObtenerCiudades");
+
+            while (lectura.Read())
+            {
+                ciudades.Add(lectura.GetString("nombre_ciudad"));
+            }
+
+            ejecutorSQL.CerrarConexion(lectura);
+            return ciudades;
+        }
+
+        /// <summary>
+        /// Carga los departamentos desde la base de datos utilizando un procedimiento almacenado.
+        /// </summary>
+        /// <returns>Una coleccion observable de nombres de departamentos.</returns>
+        public ObservableCollection<string> ObtenerDepartamentos()
+        {
+            ObservableCollection<string> departamentos = new ObservableCollection<string>();
+
+            MySqlDataReader lectura = ejecutorSQL.EjecutarProcedimientoAlmacenado("ObtenerDepartamentos");
+
+            while (lectura.Read())
+            {
+                departamentos.Add(lectura.GetString("nombre_departamento"));
+            }
+
+            ejecutorSQL.CerrarConexion(lectura);
+            return departamentos;
+        }
+
+        /// <summary>
+        /// Carga las especialidades desde la base de datos utilizando un procedimiento almacenado.
+        /// </summary>
+        /// <returns>Una coleccion observable de nombres de especialidades.</returns>
+        public ObservableCollection<string> ObtenerEspecialidades()
+        {
+            ObservableCollection<string> especialidades = new ObservableCollection<string>();
+
+            MySqlDataReader lectura = ejecutorSQL.EjecutarProcedimientoAlmacenado("ObtenerEspecialidades");
+
+            while (lectura.Read())
+            {
+                especialidades.Add(lectura.GetString("nombre_especialidad"));
+            }
+
+            ejecutorSQL.CerrarConexion(lectura);
+            return especialidades;
         }
     }
 }
