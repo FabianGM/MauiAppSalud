@@ -1,24 +1,27 @@
-﻿using MauiAppSalud.Controllers;
-using MauiAppSalud.Models;
-using MauiAppSalud.Services;
+﻿using MauiAppSalud.Models;
+using Newtonsoft.Json;
+using System.Windows.Input;
 
 namespace MauiAppSalud.ViewModels
 {
     /// <summary>
-    /// ViewModel para gestionar los usuarios en la aplicacion.
+    /// ViewModel para gestionar las citas de los pacientes.
     /// </summary>
-    [QueryProperty(nameof(IdProfesional), "idProfesional")]
     public class CitasPacientesPageVmo
     {
-        public string? IdProfesional { get; set; }
-
-        private readonly FechasController? cFechas;
-        public HorarioProfesionalMod HorariosDoctores { get; set; }
+        /// <summary>
+        /// Comando para confirmar cita
+        /// </summary>
+        public ICommand ConfirmarCitaCommand { get; }
 
         public CitasPacientesPageVmo()
         {
-            cFechas = new FechasController(new SrvFechas());
-            HorariosDoctores = cFechas.ObtenerHorarioProfesional(int.Parse(IdProfesional));
+            ConfirmarCitaCommand = new Command(LlenarCitaMedica);
+        }
+
+        private async void LlenarCitaMedica() 
+        {
+            await Shell.Current.GoToAsync("datosCitaPaciente");
         }
     }
 }

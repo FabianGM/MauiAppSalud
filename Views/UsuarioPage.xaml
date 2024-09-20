@@ -2,81 +2,86 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiAppSalud.Views.UsuarioPage"
-             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             BackgroundColor="#FFFFFF"
              Title="Registro de Usuario">
 
     <ScrollView>
-        <VerticalStackLayout Padding="30" Spacing="20">
+        <VerticalStackLayout Padding="20" Spacing="25">
 
             <!-- Titulo principal -->
             <Label Text="Registro de Usuario"
-                   FontSize="Large"
+                   FontSize="24"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
-                   TextColor="{DynamicResource PrimaryTextColor}" />
+                   TextColor="#01304C"
+                   Margin="0,20,0,10"/>
 
             <!-- Campo de entrada para el nombre -->
             <Entry Placeholder="Nombre"
                    Text="{Binding NuevoUsuario.Nombre}"
-                   PlaceholderColor="{DynamicResource PlaceholderColor}"
-                   TextColor="{DynamicResource EntryTextColor}"
-                   BackgroundColor="{DynamicResource EntryBackgroundColor}"
-                   HorizontalOptions="FillAndExpand"
-                   FontSize="Medium" />
+                   PlaceholderColor="#9CC13F"
+                   TextColor="#01304C"
+                   BackgroundColor="#F7F9FA"
+                   HeightRequest="50"
+                   FontSize="Medium"
+                   HorizontalOptions="FillAndExpand" />
 
             <!-- Campo de entrada para el correo electronico -->
-            <Entry Placeholder="Correo Electronico"
+            <Entry Placeholder="Correo Electrónico"
                    Text="{Binding NuevoUsuario.CorreoElectronico}"
-                   PlaceholderColor="{DynamicResource PlaceholderColor}"
-                   TextColor="{DynamicResource EntryTextColor}"
-                   BackgroundColor="{DynamicResource EntryBackgroundColor}"
-                   Keyboard="Email"
-                   HorizontalOptions="FillAndExpand"
-                   FontSize="Medium" />
+                   PlaceholderColor="#9CC13F"
+                   TextColor="#01304C"
+                   BackgroundColor="#F7F9FA"
+                   HeightRequest="50"
+                   FontSize="Medium"
+                   HorizontalOptions="FillAndExpand" />
 
             <!-- Campo de entrada para la clave -->
             <Entry Placeholder="Clave"
                    Text="{Binding NuevoUsuario.Clave}"
                    IsPassword="True"
-                   PlaceholderColor="{DynamicResource PlaceholderColor}"
-                   TextColor="{DynamicResource EntryTextColor}"
-                   BackgroundColor="{DynamicResource EntryBackgroundColor}"
-                   HorizontalOptions="FillAndExpand"
-                   FontSize="Medium" />
+                   PlaceholderColor="#9CC13F"
+                   TextColor="#01304C"
+                   BackgroundColor="#F7F9FA"
+                   HeightRequest="50"
+                   FontSize="Medium"
+                   HorizontalOptions="FillAndExpand" />
 
-            <!-- Boton para crear un nuevo usuario -->
+            <!-- Botón para crear un nuevo usuario -->
             <Button Text="Crear Usuario"
                     Command="{Binding CrearUsuarioCommand}"
-                    BackgroundColor="{DynamicResource ButtonBackgroundColor}"
-                    TextColor="{DynamicResource ButtonTextColor}"
+                    BackgroundColor="#9CC13F"
+                    TextColor="#FFFFFF"
                     FontAttributes="Bold"
+                    WidthRequest="200"
+                    HeightRequest="50"
                     HorizontalOptions="Center" />
 
-            <!-- Titulo de la seccion de usuarios registrados -->
+            <!-- Titulo de la sección de usuarios registrados -->
             <Label Text="Usuarios Registrados"
-                   FontSize="Medium"
+                   FontSize="20"
                    FontAttributes="Bold"
-                   TextColor="{DynamicResource PrimaryTextColor}"
+                   TextColor="#01304C"
                    Margin="0,20,0,10" />
 
             <!-- Lista de usuarios registrados -->
             <CollectionView ItemsSource="{Binding Usuarios}"
-                            BackgroundColor="{DynamicResource CollectionViewBackgroundColor}">
+                            BackgroundColor="#F7F9FA">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame Padding="10"
-                               Margin="5"
-                               CornerRadius="10"
-                               BackgroundColor="{DynamicResource CardBackgroundColor}"
+                        <Frame Padding="15"
+                               Margin="10"
+                               CornerRadius="15"
+                               BackgroundColor="#9CC13F"
                                HasShadow="True">
                             <VerticalStackLayout>
                                 <Label Text="{Binding Nombre}"
                                        FontAttributes="Bold"
-                                       TextColor="{DynamicResource PrimaryTextColor}"
-                                       FontSize="Medium" />
+                                       TextColor="#FFFFFF"
+                                       FontSize="18" />
                                 <Label Text="{Binding CorreoElectronico}"
-                                       TextColor="{DynamicResource SecondaryTextColor}"
-                                       FontSize="Small" />
+                                       TextColor="#F0F0F0"
+                                       FontSize="14" />
                             </VerticalStackLayout>
                         </Frame>
                     </DataTemplate>

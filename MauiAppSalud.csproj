@@ -60,6 +60,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\diana_carolina.jpg" />
+	  <None Remove="Resources\Images\jose_luis.jpg" />
+	  <None Remove="Resources\Images\juanita_puchulu.jpg" />
+	  <None Remove="Resources\Images\lucia_gomez.jpg" />
+	  <None Remove="Resources\Images\maria_fernanda.jpg" />
+	  <None Remove="Resources\Images\miguel_angel.jpg" />
+	  <None Remove="Resources\Images\roberto_aguilar.jpg" />
+	  <None Remove="Resources\Images\sofia_lopez.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
@@ -75,6 +86,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Views\CitasPacientesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\DatosCitaMedica.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\DetallesProfesionalPage.xaml">

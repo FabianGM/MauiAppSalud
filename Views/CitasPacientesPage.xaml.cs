@@ -1,9 +1,8 @@
 using MauiAppSalud.Controllers;
 using MauiAppSalud.Models;
 using MauiAppSalud.Services;
+using MauiAppSalud.ViewModels;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 
 namespace MauiAppSalud.Views;
 
@@ -18,6 +17,7 @@ public partial class CitasPacientesPage : ContentPage
     public CitasPacientesPage()
     {
         InitializeComponent();
+        BindingContext = new CitasPacientesPageVmo();
     }
 
     protected override void OnAppearing()
@@ -70,5 +70,26 @@ public partial class CitasPacientesPage : ContentPage
         }
 
         return horas;
+    }
+
+    private async void OnConfirmarCitaClicked(object sender, EventArgs e)
+    {
+        // Obtener la fecha seleccionada en el DatePicker
+        DateTime fechaSeleccionada = FechaCitaPicker.Date;
+
+        // Obtener la hora seleccionada en el Picker de horas
+        string horaSeleccionada = HoraCitaPicker.SelectedItem as string;
+
+        // Validar si se seleccionó una hora
+        if (horaSeleccionada == null)
+        {
+            Console.WriteLine("Por favor selecciona una hora.");
+            return;
+        }
+
+        // Combinar fecha y hora para obtener la fecha completa de la cita
+        DateTime fechaHoraCita = DateTime.Parse($"{fechaSeleccionada.ToString("yyyy-MM-dd")} {horaSeleccionada}");
+        Preferences.Set("fechaHoraCita", fechaHoraCita);
+        await Shell.Current.GoToAsync("datosCitaPaciente");
     }
 }

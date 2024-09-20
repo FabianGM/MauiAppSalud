@@ -21,6 +21,7 @@ namespace MauiAppSalud
             // Registrar la ruta de navegacion
             Routing.RegisterRoute("detallesProfesional", typeof(DetallesProfesionalPage));
             Routing.RegisterRoute("citasPacientes", typeof(CitasPacientesPage));
+            Routing.RegisterRoute("datosCitaPaciente", typeof(DatosCitaMedica));
         }
     }
 }

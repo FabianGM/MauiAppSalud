@@ -2,42 +2,60 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiAppSalud.Views.CitasPacientesPage"
-             Title="Citas Pacientes">
-    <VerticalStackLayout Padding="20">
+             Title=""
+             BackgroundColor="White">
 
-        <!-- Etiqueta de seleccion de fecha -->
-        <Label Text="Selecciona la fecha de tu cita" 
-               FontSize="Large"
-               FontAttributes="Bold"
-               HorizontalOptions="Center" />
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="FillAndExpand">
 
-        <!-- Calendario para seleccionar la fecha -->
-        <DatePicker x:Name="FechaCitaPicker"
-                    Date="{Binding FechaSeleccionada}"
-                    MinimumDate="{Binding FechaMinima}"
-                    MaximumDate="{Binding FechaMaxima}" />
+            <!-- Etiqueta de seleccion de fecha con estilo -->
+            <Label Text="Selecciona la fecha de tu cita" 
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="#01304C"
+                   HorizontalOptions="Center"
+                   Margin="0,10" />
 
-        <!-- Etiqueta para seleccionar la hora -->
-        <Label Text="Selecciona la hora de tu cita" 
-               FontSize="Large"
-               FontAttributes="Bold"
-               HorizontalOptions="Center"
-               Margin="0,20,0,0"/>
+            <!-- Calendario para seleccionar la fecha -->
+            <DatePicker x:Name="FechaCitaPicker"
+                        Date="{Binding FechaSeleccionada}"
+                        MinimumDate="{Binding FechaMinima}"
+                        MaximumDate="{Binding FechaMaxima}"
+                        BackgroundColor="#FFFFFF"
+                        TextColor="#01304C"
+                        WidthRequest="250"
+                        HeightRequest="45"
+                        HorizontalOptions="Center" />
 
-        <Picker x:Name="HoraCitaPicker"
-        Title="Seleccione una hora"
-        HorizontalOptions="Center" />
+            <!-- Etiqueta para seleccionar la hora con estilo mejorado -->
+            <Label Text="Selecciona la hora de tu cita" 
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="#01304C"
+                   HorizontalOptions="Center"
+                   Margin="20,20,20,0"/>
 
-        <!-- Formato de 24 horas -->
+            <!-- Selector de hora con estilo mejorado -->
+            <Picker x:Name="HoraCitaPicker"
+                    Title="Seleccione una hora"
+                    BackgroundColor="#FFFFFF"
+                    TextColor="#01304C"
+                    WidthRequest="250"
+                    HeightRequest="74"
+                    HorizontalOptions="Center" />
 
-        <!-- Boton para confirmar la cita -->
-        <Button Text="Confirmar Cita" 
-                Command="{Binding ConfirmarCitaCommand}" 
-                BackgroundColor="Blue"
-                TextColor="White"
-                FontAttributes="Bold"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                Margin="0,20,0,0" />
-    </VerticalStackLayout>
+            <!-- Boton para confirmar la cita con estilo elegante -->
+            <Button Text="Confirmar Cita" 
+                    Clicked="OnConfirmarCitaClicked"
+                    BackgroundColor="#01304C"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    WidthRequest="200"
+                    HeightRequest="50"
+                    CornerRadius="25"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Margin="20,40,20,0" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
