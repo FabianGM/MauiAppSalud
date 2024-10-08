@@ -90,6 +90,6 @@ public partial class CitasPacientesPage : ContentPage
         // Combinar fecha y hora para obtener la fecha completa de la cita
         DateTime fechaHoraCita = DateTime.Parse($"{fechaSeleccionada.ToString("yyyy-MM-dd")} {horaSeleccionada}");
         Preferences.Set("fechaHoraCita", fechaHoraCita);
-        await Shell.Current.GoToAsync("datosCitaPaciente");
+        await Shell.Current.GoToAsync("pagos");
     }
 }

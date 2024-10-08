@@ -1,5 +1,4 @@
-﻿using MauiAppSalud.ViewModels;
-using MauiAppSalud.Views;
+﻿using MauiAppSalud.Views;
 
 namespace MauiAppSalud
 {
@@ -22,6 +21,7 @@ namespace MauiAppSalud
             Routing.RegisterRoute("detallesProfesional", typeof(DetallesProfesionalPage));
             Routing.RegisterRoute("citasPacientes", typeof(CitasPacientesPage));
             Routing.RegisterRoute("datosCitaPaciente", typeof(DatosCitaMedica));
+            Routing.RegisterRoute("pagos", typeof(PagosPage));
         }
     }
 }

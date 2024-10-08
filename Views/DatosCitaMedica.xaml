@@ -2,11 +2,118 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiAppSalud.Views.DatosCitaMedica"
-             Title="">
-    <VerticalStackLayout>
-        <Label 
-            Text="Cita Confirmada"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title=""
+             BackgroundColor="White">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="FillAndExpand">
+
+            <!-- Titulo estilizado para el formulario de pago -->
+            <Label Text="Datos para el Pago"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   TextColor="#01304C"
+                   HorizontalOptions="Center"
+                   Margin="0,20" />
+
+            <!-- Separador visual -->
+            <BoxView HeightRequest="2"
+                     BackgroundColor="#9CC13F"
+                     WidthRequest="300"
+                     HorizontalOptions="Center"
+                     Margin="0,20" />
+
+            <!-- Seccion de datos del cliente -->
+            <Label Text="Datos del Cliente"
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   TextColor="#01304C"
+                   HorizontalOptions="Center"
+                   Margin="0,10" />
+
+            <!-- Nombre del cliente con estilo de caja -->
+            <Frame BackgroundColor="#F5F5F5"
+                   CornerRadius="15"
+                   Padding="0"
+                   HasShadow="True">
+                <Entry Placeholder="Nombre del Cliente"
+                       Text="{Binding NombreCliente}"
+                       TextColor="#01304C"
+                       PlaceholderColor="#9CC13F"
+                       Margin="10,0"
+                       HeightRequest="45" />
+            </Frame>
+
+            <!-- Correo electronico del cliente -->
+            <Frame BackgroundColor="#F5F5F5"
+                   CornerRadius="15"
+                   Padding="0"
+                   HasShadow="True">
+                <Entry Placeholder="Correo Electronico"
+                       Text="{Binding CorreoCliente}"
+                       Keyboard="Email"
+                       TextColor="#01304C"
+                       PlaceholderColor="#9CC13F"
+                       Margin="10,0"
+                       HeightRequest="45" />
+            </Frame>
+
+            <!-- Telefono del cliente -->
+            <Frame BackgroundColor="#F5F5F5"
+                   CornerRadius="15"
+                   Padding="0"
+                   HasShadow="True">
+                <Entry Placeholder="Telefono"
+                       Text="{Binding TelefonoCliente}"
+                       Keyboard="Telephone"
+                       TextColor="#01304C"
+                       PlaceholderColor="#9CC13F"
+                       Margin="10,0"
+                       HeightRequest="45" />
+            </Frame>
+
+            <!-- Separador visual -->
+            <BoxView HeightRequest="2"
+                     BackgroundColor="#9CC13F"
+                     WidthRequest="300"
+                     HorizontalOptions="Center"
+                     Margin="20,15" />
+
+            <!-- Seccion de datos del doctor -->
+            <Label Text="Datos del Doctor"
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   TextColor="#01304C"
+                   HorizontalOptions="Center"
+                   Margin="0,10" />
+
+            <!-- Nombre del profesional con mayor tamano y estilo mas llamativo -->
+            <Label x:Name="NombreCompletoLabel"
+                   FontSize="30"
+                   FontAttributes="Bold"
+                   TextColor="#01304C"
+                   HorizontalOptions="Center"
+                   Margin="0,20" />
+
+            <!-- Especialidad del profesional con un estilo mas suave -->
+            <Label x:Name="EspecialidadLabel"
+                   FontSize="20"
+                   TextColor="#9CC13F"
+                   HorizontalOptions="Center"
+                   Margin="0,5" />
+
+            <!-- Boton para enviar el formulario, centrado y estilizado -->
+            <Button Text="Enviar Formulario"
+                    Clicked="OnPagoClicked"
+                    BackgroundColor="#01304C"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    WidthRequest="200"
+                    HeightRequest="50"
+                    CornerRadius="25"
+                    HorizontalOptions="Center"
+                    Margin="20,40,20,0" />
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

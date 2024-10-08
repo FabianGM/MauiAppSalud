@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppSalud.Views.PagosPage"
+             Title="Pago del Servicio">
+  <ScrollView>
+    <StackLayout Padding="10">
+        <!-- Campo para el nombre del titular de la tarjeta -->
+        <Label Text="Nombre del Titular" />
+        <Entry x:Name="NombreTitularEntry" Placeholder="Escriba el nombre" />
+
+        <!-- Campo para el número de la tarjeta -->
+        <Label Text="Número de Tarjeta" />
+            <Entry x:Name="NumeroTarjetaEntry" Placeholder="Escriba la tarjeta" Keyboard="Numeric" />
+
+        <!-- Campo para el CVC de la tarjeta -->
+        <Label Text="CVC" />
+             <Entry x:Name="CvcEntry" Placeholder="Escriba la clave" Keyboard="Numeric" />
+
+        <!-- Campo para la fecha de expiración (mes) -->
+        <Label Text="Mes de Expiración" />
+        <Entry x:Name="MesExpiracionEntry" Placeholder="Escriba el número del mes de la tarjeta" Keyboard="Numeric" />
+
+        <!-- Campo para la fecha de expiración (año) -->
+        <Label Text="Año de Expiración" />
+           <Entry x:Name="AnoExpiracionEntry" Placeholder="Escriba el nùmero del año de la tarjeta " Keyboard="Numeric" />
+
+        <!-- Campo para el email del cliente -->
+        <Label Text="Email del Cliente" />
+        <Entry x:Name="EmailClienteEntry" Placeholder="Escriba su correo Electrónico" Keyboard="Email" />
+
+        <!-- Campo para el monto de la transacción -->
+        <Label Text="Monto en COP"/>
+        <Entry x:Name="MontoEntry" Placeholder="Ingrese el monto que va pagar por tarjeta" Keyboard="Numeric" />
+
+        <!-- Botón para procesar el pago -->
+        <Button Text="Procesar Pago" Clicked="OnProcesarPagoClicked" BackgroundColor="Green" TextColor="White" />
+    </StackLayout>
+ </ScrollView>
+</ContentPage>
