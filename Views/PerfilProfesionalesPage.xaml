@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiAppSalud.Views.PerfilProfesionalesPage"
@@ -6,27 +5,19 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="FillAndExpand">
-
-            <!-- Título centrado, con mayor tamaño -->
-            <Label Text="Encuentra a los mejores profesionales"
-                   FontSize="28"
-                   FontAttributes="Bold"
-                   TextColor="#01304C"
-                   HorizontalOptions="Center" />
-
             <!-- Barra de búsqueda con borde redondeado, centrada -->
             <Frame BackgroundColor="#FFFFFF"
-                   HasShadow="True"
-                   Margin="0,0,0,20">
+          HasShadow="True"
+          Margin="0,0,0,20">
                 <Grid>
                     <Entry Placeholder="🔎 Buscar por nombre o especialidad"
-                           Text="{Binding TextoBusqueda, Mode=TwoWay}"
-                           TextChanged="OnFilterChanged"
-                           FontSize="15"
-                           PlaceholderColor="Black"
-                           TextColor="#01304C"
-                           BackgroundColor="Transparent"
-                           HeightRequest="45" />
+                  Text="{Binding TextoBusqueda, Mode=TwoWay}"
+                  TextChanged="OnFilterChanged"
+                  FontSize="15"
+                  PlaceholderColor="Black"
+                  TextColor="#01304C"
+                  BackgroundColor="Transparent"
+                  HeightRequest="45" />
                     <Image Source="iconobuscar.png" HorizontalOptions="End" VerticalOptions="Center" Margin="10,0" />
                 </Grid>
             </Frame>
@@ -36,70 +27,79 @@
 
                 <!-- Especialidad -->
                 <Picker Title="Especialidad"
-                        ItemsSource="{Binding Especialidades}"
-                        SelectedItem="{Binding EspecialidadSeleccionada, Mode=TwoWay}"
-                        SelectedIndexChanged="OnFilterChanged"
-                        BackgroundColor="#FFFFFF"
-                        TextColor="#01304C"
-                        Grid.Column="0"
-                        Margin="0,10,10,0"
-                        HeightRequest="72" />
+               ItemsSource="{Binding Especialidades}"
+               SelectedItem="{Binding EspecialidadSeleccionada, Mode=TwoWay}"
+               SelectedIndexChanged="OnFilterChanged"
+               BackgroundColor="#FFFFFF"
+               TextColor="#01304C"
+               Grid.Column="0"
+               Margin="0,10,10,0"
+               HeightRequest="72" />
                 <Button Text="X"
-                        Command="{Binding ClearEspecialidadCommand}"
-                        IsVisible="{Binding EspecialidadSeleccionada}"
-                        BackgroundColor="Transparent"
-                        TextColor="Red"
-                        FontSize="Medium"
-                        WidthRequest="50"
-                        HeightRequest="72"
-                        Margin="10,20,0,0"
-                        Grid.Column="1" VerticalOptions="Center" />
+               Command="{Binding ClearEspecialidadCommand}"
+               IsVisible="{Binding EspecialidadSeleccionada}"
+               BackgroundColor="Transparent"
+               TextColor="Red"
+               BorderColor="Red"        
+               BorderWidth="1"
+               CornerRadius="80"
+               FontSize="Medium"
+               WidthRequest="50"
+               HeightRequest="45"
+               Margin="10,20,0,0"
+               Grid.Column="1" VerticalOptions="Center" />
 
                 <!-- Departamento -->
                 <Picker Title="Departamento"
-                        ItemsSource="{Binding Departamentos}"
-                        SelectedItem="{Binding DepartamentoSeleccionado, Mode=TwoWay}"
-                        SelectedIndexChanged="OnFilterChanged"
-                        BackgroundColor="#FFFFFF"
-                        TextColor="#01304C"
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Margin="0,10,10,0"
-                        HeightRequest="72" />
+               ItemsSource="{Binding Departamentos}"
+               SelectedItem="{Binding DepartamentoSeleccionado, Mode=TwoWay}"
+               SelectedIndexChanged="OnFilterChanged"
+               BackgroundColor="#FFFFFF"
+               TextColor="#01304C"
+               Grid.Row="1"
+               Grid.Column="0"
+               Margin="0,10,10,0"
+               HeightRequest="72" />
                 <Button Text="X"
-                        Command="{Binding ClearDepartamentoCommand}"
-                        IsVisible="{Binding DepartamentoSeleccionado}"
-                        BackgroundColor="Transparent"
-                        TextColor="Red"
-                        FontSize="Medium"
-                        WidthRequest="50"
-                        HeightRequest="60"
-                        Margin="10,20,0,0"
-                        Grid.Row="1"
-                        Grid.Column="1" VerticalOptions="Center" />
+               Command="{Binding ClearDepartamentoCommand}"
+               IsVisible="{Binding DepartamentoSeleccionado}"
+               BackgroundColor="Transparent"
+               TextColor="Red"
+               BorderColor="Red"        
+               BorderWidth="1"
+               CornerRadius="80"
+               FontSize="Medium"
+               WidthRequest="50"
+               HeightRequest="45"
+               Margin="10,20,0,0"
+               Grid.Row="1"
+               Grid.Column="1" VerticalOptions="Center" />
 
                 <!-- Ciudad -->
                 <Picker Title="Ciudad"
-                        ItemsSource="{Binding Ciudades}"
-                        SelectedItem="{Binding CiudadSeleccionada, Mode=TwoWay}"
-                        SelectedIndexChanged="OnFilterChanged"
-                        BackgroundColor="#FFFFFF"
-                        TextColor="#01304C"
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Margin="0,10,10,0"
-                        HeightRequest="72" />
+               ItemsSource="{Binding Ciudades}"
+               SelectedItem="{Binding CiudadSeleccionada, Mode=TwoWay}"
+               SelectedIndexChanged="OnFilterChanged"
+               BackgroundColor="#FFFFFF"
+               TextColor="#01304C"
+               Grid.Row="2"
+               Grid.Column="0"
+               Margin="0,10,10,0"
+               HeightRequest="72" />
                 <Button Text="X"
-                        Command="{Binding ClearCiudadCommand}"
-                        IsVisible="{Binding CiudadSeleccionada}"
-                        BackgroundColor="Transparent"
-                        TextColor="Red"
-                        FontSize="Medium"
-                        WidthRequest="50"
-                        HeightRequest="45"
-                        Margin="10,20,0,0"
-                        Grid.Row="2"
-                        Grid.Column="1" VerticalOptions="Center" />
+               Command="{Binding ClearCiudadCommand}"
+               IsVisible="{Binding CiudadSeleccionada}"
+               BackgroundColor="Transparent"
+               CornerRadius="80"
+               TextColor="Red"
+               BorderColor="Red"        
+               BorderWidth="1"
+               FontSize="Medium"
+               WidthRequest="50"
+               HeightRequest="45"
+               Margin="10,20,0,0"
+               Grid.Row="2"
+               Grid.Column="1" VerticalOptions="Center" />
             </Grid>
 
             <!-- Lista de profesionales con diseño tipo tarjeta moderna -->
@@ -108,48 +108,56 @@
                             BackgroundColor="Transparent"
                             Margin="0,0,0,10">
                 <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="2" />
+                    <GridItemsLayout Orientation="Vertical" Span="1" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame 
-                               Margin="15"
-                               BackgroundColor="#FFFFFF"
-                               HasShadow="True">
-                            <VerticalStackLayout HorizontalOptions="FillAndExpand" Spacing="10">
-
+                        <Frame BackgroundColor="White"
+                               CornerRadius="20"
+                               HasShadow="True"
+                               Margin="10"
+                               Padding="10">
+                            <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto">
                                 <!-- Imagen del profesional -->
-                                <Image Source="{Binding FotoPerfil}"
-                                       WidthRequest="150"
-                                       HeightRequest="150"
-                                       Aspect="AspectFill"
-                                       HorizontalOptions="Center" />
+                                <Image Source="{Binding FotoPerfil}" 
+                                       WidthRequest="50" 
+                                       HeightRequest="50" 
+                                       Aspect="AspectFill" 
+                                       VerticalOptions="Start" 
+                                       HorizontalOptions="Start" 
+                                       Margin="0,0,10,0"
+                                       Grid.RowSpan="2"/>
 
-                                <!-- Nombre del profesional con mayor tamaño y negrita -->
-                                <Label Text="{Binding NombreCompleto}"
+                                <!-- Nombre del doctor o clínica -->
+                                <Label Text="{Binding NombreCompleto}" 
                                        FontAttributes="Bold"
-                                       FontSize="18"
+                                       FontSize="18" 
+                                       TextColor="Black" 
+                                       Grid.Column="1"/>
+
+                                <!-- Especialidad -->
+                                <Label Text="{Binding Especialidad}" 
+                                       FontSize="14" 
+                                       TextColor="#6B7280" 
+                                       Grid.Column="1" 
+                                       Grid.Row="1"/>
+
+                                <!-- Enlace "Ver más..." -->
+                                <Label Text="Ver más..."
                                        TextColor="#01304C"
-                                       HorizontalOptions="Center" />
-
-                                <!-- Especialidad del profesional -->
-                                <Label Text="{Binding Especialidad}"
+                                       FontAttributes="Italic"
                                        FontSize="14"
-                                       TextColor="#9CC13F"
-                                       HorizontalOptions="Center" />
-
-                                <!-- Botón "Ver más..." mejorado -->
-                                <Button Text="Ver más"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.VerMasCommand}"
-                                        CommandParameter="{Binding .}"
-                                        BackgroundColor="#01304C"
-                                        TextColor="#FFFFFF"
-                                        FontAttributes="Bold"
-                                        WidthRequest="150"
-                                        HeightRequest="45"
-                                        HorizontalOptions="Center"
-                                        Margin="0,10" />
-                            </VerticalStackLayout>
+                                       Grid.Column="1"
+                                       Grid.Row="2"
+                                       VerticalOptions="End"
+                                       HorizontalOptions="Start"
+                                       Margin="0,10,0,0">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.VerMasCommand}"
+                                                              CommandParameter="{Binding .}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Grid>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
