@@ -60,19 +60,9 @@ namespace MauiAppSalud.ViewModels
         public ICommand? VerMasCommand { get; }
 
         /// <summary>
-        /// Comando que se ejecuta para limpiar el filtro de especialidad.
+        /// Comando que se ejecuta para limpiar los filtros de busqueda.
         /// </summary>
-        public ICommand ClearEspecialidadCommand { get; }
-
-        /// <summary>
-        /// Comando que se ejecuta para limpiar el filtro de departamento.
-        /// </summary>
-        public ICommand ClearDepartamentoCommand { get; }
-
-        /// <summary>
-        /// Comando que se ejecuta para limpiar el filtro de ciudad.
-        /// </summary>
-        public ICommand ClearCiudadCommand { get; }
+        public ICommand ClearFieldCommand { get; }
 
         /// <summary>
         /// Propiedad que almacena la especialidad seleccionada por el usuario.
@@ -135,21 +125,20 @@ namespace MauiAppSalud.ViewModels
                 Preferences.Set("datosprofesional", JsonConvert.SerializeObject(parametros));
             });
 
-            ClearEspecialidadCommand = new Command(() =>
+            ClearFieldCommand = new Command<string>((fieldName) =>
             {
-                EspecialidadSeleccionada = null;
-                ComandoBuscar.Execute(null);
-            });
-
-            ClearDepartamentoCommand = new Command(() =>
-            {
-                DepartamentoSeleccionado = null;
-                ComandoBuscar.Execute(null);
-            });
-
-            ClearCiudadCommand = new Command(() =>
-            {
-                CiudadSeleccionada = null;
+                switch (fieldName)
+                {
+                    case "Especialidad":
+                        EspecialidadSeleccionada = null;
+                        break;
+                    case "Departamento":
+                        DepartamentoSeleccionado = null;
+                        break;
+                    case "Ciudad":
+                        CiudadSeleccionada = null;
+                        break;
+                }
                 ComandoBuscar.Execute(null);
             });
         }

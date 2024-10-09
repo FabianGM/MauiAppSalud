@@ -1,6 +1,4 @@
-﻿using MauiAppSalud.Models;
-using Newtonsoft.Json;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace MauiAppSalud.ViewModels
 {
