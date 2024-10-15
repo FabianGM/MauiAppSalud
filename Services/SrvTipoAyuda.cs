@@ -29,30 +29,41 @@ namespace MauiAppSalud.Services
         {
             ObservableCollection<TipoAyudaMod> serviciosDisponibles = new ObservableCollection<TipoAyudaMod>();
 
-            // Configuración del parámetro
-            var parametros = new List<MySqlParameter>
+            try
+            {
+                // Configuración del parámetro
+                var parametros = new List<MySqlParameter>
             {
                 new MySqlParameter("@idProfesional", MySqlDbType.Int32) { Value = idProfesional }
             };
 
-            // Ejecutar el procedimiento almacenado
-            MySqlDataReader lectura = ejecutorSQL.EjecutarProcedimientoAlmacenado("ObtenerServiciosPorProfesional", parametros);
+                // Ejecutar el procedimiento almacenado
+                MySqlDataReader lectura = ejecutorSQL.EjecutarProcedimientoAlmacenado("ObtenerServiciosPorProfesional", parametros);
 
-            // Leer los resultados
-            while (lectura.Read())
-            {
-                serviciosDisponibles.Add(new TipoAyudaMod
+                // Leer los resultados
+                while (lectura.Read())
                 {
-                    IdTipoAyuda = lectura.GetInt32("IdTipoAyuda"),
-                    NombreServicio = lectura.GetString("NombreServicio"),
-                    Duracion = lectura.GetString("Duracion"),
-                    Precio = lectura.GetDecimal("Precio")
-                });
+                    serviciosDisponibles.Add(new TipoAyudaMod
+                    {
+                        IdTipoAyuda = lectura.GetInt32("IdTipoAyuda"),
+                        NombreServicio = lectura.GetString("NombreServicio"),
+                        Duracion = lectura.GetString("Duracion"),
+                        Precio = lectura.GetDecimal("Precio")
+                    });
+                }
+
+                // Cerrar el lector de datos
+                ejecutorSQL.CerrarConexion(lectura);
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones (opcional)
+                Console.WriteLine("Error al obtener los servicios: " + ex.Message);
             }
 
-            // Cerrar conexión
-            ejecutorSQL.CerrarConexion(lectura);
+            // Retornar la colección con los servicios disponibles
             return serviciosDisponibles;
         }
+
     }
 }

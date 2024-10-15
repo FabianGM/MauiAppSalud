@@ -121,8 +121,8 @@ namespace MauiAppSalud.ViewModels
 
             VerMasCommand = new Command<ProfesionalMod>(async (parametros) =>
             {
-                await Shell.Current.GoToAsync($"detallesProfesional?idProfesional={parametros.IdProfesional}&nombre={parametros.NombreCompleto}&especialidad={parametros.Especialidad}&fotoPerfil={parametros.FotoPerfil}");
                 Preferences.Set("datosprofesional", JsonConvert.SerializeObject(parametros));
+                await Shell.Current.GoToAsync($"detallesProfesional?idProfesional={parametros.IdProfesional}&nombre={parametros.NombreCompleto}&especialidad={parametros.Especialidad}&fotoPerfil={parametros.FotoPerfil}");       
             });
 
             ClearFieldCommand = new Command<string>((fieldName) =>

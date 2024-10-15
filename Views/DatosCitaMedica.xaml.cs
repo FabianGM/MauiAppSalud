@@ -1,5 +1,6 @@
 using MauiAppSalud.Models;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace MauiAppSalud.Views;
 
@@ -37,5 +38,14 @@ public partial class DatosCitaMedica : ContentPage
     private async void OnPagoClicked(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync("pagos");
-    } 
+    }
+
+    // Evento que la interfaz de usuario escucha para saber si ha habido un cambio en una propiedad
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    // Este método notifica a la UI que una propiedad ha cambiado
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 }

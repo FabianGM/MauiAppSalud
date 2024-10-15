@@ -1,45 +1,37 @@
 using MauiAppSalud.Models.Constantes;
+using System.ComponentModel;
 
 namespace MauiAppSalud.Views;
 
 public partial class PagosPage : ContentPage
 {
+    private static readonly Dictionary<int, string> ServicioUrls = new Dictionary<int, string>
+    {
+        { 1, "https://checkout.wompi.co/l/vss3Ru" },
+        { 2, "https://checkout.wompi.co/l/ViBQRx" },
+        { 6, "https://checkout.wompi.co/l/9kppau" },
+        { 7, "https://checkout.wompi.co/l/GaHspJ" },
+        { 8, "https://checkout.wompi.co/l/28KaHu" }
+    };
+
     public PagosPage()
     {
         InitializeComponent();
+
+        // Obtener el idTipoServicio desde las preferencias
         int idTipoServicio = Preferences.Get("idtiposervicio", Constantes.VALOR_CERO);
-        string vposUrl = string.Empty;
-        if (idTipoServicio == 2)
+
+        // Buscar la URL en el diccionario
+        if (ServicioUrls.TryGetValue(idTipoServicio, out string vposUrl))
         {
-            vposUrl = "https://checkout.wompi.co/l/ViBQRx";
+            // Cargar la URL en el WebView si se encuentra
+            WompiWebView.Source = vposUrl;
         }
-
-        if (idTipoServicio == 1)
+        else
         {
-            vposUrl = "https://checkout.wompi.co/l/vss3Ru";
+            // Si no se encuentra el idTipoServicio, manejar el caso (opcional)
+            DisplayAlert("Error", "No se encontró una URL válida para el tipo de servicio.", "OK");
         }
-
-
-        if (idTipoServicio == 6)
-        {
-            vposUrl = "https://checkout.wompi.co/l/9kppau";
-        }
-
-        if (idTipoServicio == 7)
-        {
-            vposUrl = "https://checkout.wompi.co/l/GaHspJ";
-        }
-
-        if (idTipoServicio == 8)
-        {
-            vposUrl = "https://checkout.wompi.co/l/28KaHu";
-        }
-
-        // URL directa del VPOS de Wompi
-        ////string vposUrl = "https://checkout.wompi.co/l/VPOS_nkr1Nb";
-
-        // Cargar la URL en el WebView
-        WompiWebView.Source = vposUrl;
     }
 
     // Manejar enlaces externos o emergentes
@@ -56,5 +48,14 @@ public partial class PagosPage : ContentPage
             // Volver a la página principal una vez completado
             await Navigation.PopToRootAsync();
         }
+    }
+
+    // Evento que la interfaz de usuario escucha para saber si ha habido un cambio en una propiedad
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    // Este método notifica a la UI que una propiedad ha cambiado
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

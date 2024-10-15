@@ -2,6 +2,7 @@
 using MauiAppSalud.Models;
 using MauiAppSalud.Models.Constantes;
 using MauiAppSalud.Services;
+using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -33,8 +34,11 @@ namespace MauiAppSalud.ViewModels
         public DetallesProfesionalVmo()
         {
             cTipoAyuda = new TipoAyudaController(new SrvTipoAyuda());
-            int idProfesional = Preferences.Get("idProfesional", Constantes.VALOR_CERO);
-            ServiciosDisponibles = cTipoAyuda.ObtenerTipoAyuda(idProfesional);
+            // Obtener los datos del profesional desde las preferencias
+            string datosProfesional = Preferences.Get("datosprofesional", string.Empty);
+            ProfesionalMod? oProfesional = JsonConvert.DeserializeObject<ProfesionalMod>(datosProfesional);
+            ServiciosDisponibles?.Clear();
+            ServiciosDisponibles = cTipoAyuda.ObtenerTipoAyuda(oProfesional.IdProfesional);
             ComandoContinuar = new Command<TipoAyudaMod>(ContinuarConServicio);
         }
 

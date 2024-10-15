@@ -3,6 +3,7 @@ using MauiAppSalud.Models;
 using MauiAppSalud.Services;
 using MauiAppSalud.ViewModels;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace MauiAppSalud.Views;
 
@@ -104,5 +105,14 @@ public partial class CitasPacientesPage : ContentPage
 
         // Navegar a la página de pagos
         await Shell.Current.GoToAsync("pagos");
+    }
+
+    // Evento que la interfaz de usuario escucha para saber si ha habido un cambio en una propiedad
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    // Este método notifica a la UI que una propiedad ha cambiado
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
