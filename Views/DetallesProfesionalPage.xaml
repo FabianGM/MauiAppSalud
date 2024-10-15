@@ -2,49 +2,71 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiAppSalud.Views.DetallesProfesionalPage"
-             Title=""
              BackgroundColor="White">
 
     <ScrollView>
+
         <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="FillAndExpand">
 
-            <!-- Imagen del profesional centrada, tamano mejorado -->
-            <Image x:Name="FotoPerfilImage"
-                   WidthRequest="200"
-                   HeightRequest="200"
-                   Aspect="AspectFill"
-                   HorizontalOptions="Center"
-                   Margin="0,20" />
+            <!-- Grid para la imagen y los labels al lado -->
+            <Grid Padding="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <!-- Columna para la imagen -->
+                    <ColumnDefinition Width="*" />
+                    <!-- Columna para los labels -->
+                </Grid.ColumnDefinitions>
 
-            <!-- Nombre del profesional con mayor tamano y estilo mas llamativo -->
-            <Label x:Name="NombreCompletoLabel"
-                   FontSize="30"
-                   FontAttributes="Bold"
-                   TextColor="#01304C"
-                   HorizontalOptions="Center"
-                   Margin="0,20" />
+                <!-- Imagen del profesional -->
+                <Image x:Name="FotoPerfilImage"
+                       WidthRequest="170"
+                       HeightRequest="170"
+                       Aspect="AspectFill"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center"
+                       Margin="0,0,20,0" 
+                       Grid.Column="0" />
 
-            <!-- Especialidad del profesional con un estilo mas suave -->
-            <Label x:Name="EspecialidadLabel"
-                   FontSize="20"
-                   TextColor="#9CC13F"
-                   HorizontalOptions="Center"
-                   Margin="0,5" />
+                <!-- Labels del nombre y la especialidad -->
+                <VerticalStackLayout VerticalOptions="Center" Grid.Column="1">
+                    <!-- Nombre del profesional -->
+                    <Label x:Name="NombreCompletoLabel"
+                           FontSize="30"
+                           FontAttributes="Bold"
+                           TextColor="#01304C"
+                           HorizontalOptions="Start"
+                           Margin="0,0,0,10" />
+
+                    <!-- Especialidad del profesional -->
+                    <Label x:Name="EspecialidadLabel"
+                           FontSize="20"
+                           TextColor="#6B7280"
+                           HorizontalOptions="Start"
+                           Margin="0,0,0,5" />
+                </VerticalStackLayout>
+            </Grid>
 
             <!-- Lista de servicios disponibles -->
+            <Label Text="Servicios y procedimientos:"
+                   FontAttributes="Bold"
+                   FontSize="18"
+                   TextColor="#01304C"
+                   Margin="20,50,0,0" />
+
+            <!-- CollectionView para mostrar los servicios -->
             <CollectionView ItemsSource="{Binding ServiciosDisponibles}"
                             VerticalOptions="FillAndExpand"
                             BackgroundColor="Transparent"
-                            Margin="0,40,0,0">
+                            Margin="0,5,0,0">
                 <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="20" VerticalItemSpacing="20" />
+                    <GridItemsLayout Orientation="Vertical" Span="1" HorizontalItemSpacing="20" VerticalItemSpacing="20" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame Padding="20"
                                Margin="10"
                                CornerRadius="20"
-                               BorderColor="#9CC13F"
+                               BorderColor="#6B7280"
                                BackgroundColor="White"
                                HasShadow="True">
                             <VerticalStackLayout HorizontalOptions="FillAndExpand" Spacing="10">
@@ -56,10 +78,10 @@
                                        TextColor="#01304C"
                                        HorizontalOptions="Center" />
 
-                                <!-- Duracion del servicio centrada y en verde -->
+                                <!-- Duración del servicio centrada y en verde -->
                                 <Label Text="{Binding Duracion}"
                                        FontSize="18"
-                                       TextColor="#9CC13F"
+                                       TextColor="#6B7280"
                                        HorizontalOptions="Center" />
 
                                 <!-- Precio del servicio alineado a la derecha en gris -->
@@ -68,15 +90,15 @@
                                        TextColor="Gray"
                                        HorizontalOptions="Center" />
 
-                                <!-- Boton Continuar con estilo mejorado y centrado -->
-                                <Button Text="Continuar"
-                                        BackgroundColor="#01304C"
-                                        TextColor="White"
+                                <!-- Botón para agendar cita -->
+                                <Button Text="📅 Agendar Cita"
+                                        BackgroundColor="#00C389"
+                                        TextColor="Black"
                                         FontAttributes="Bold"
-                                        WidthRequest="160"
-                                        HeightRequest="50"
-                                        CornerRadius="25"
-                                        HorizontalOptions="Center"
+                                        HorizontalOptions="FillAndExpand"
+                                        Margin="0,20,0,0"
+                                        HeightRequest="45"
+                                        CornerRadius="22"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ComandoContinuar}"
                                         CommandParameter="{Binding .}" />
                             </VerticalStackLayout>

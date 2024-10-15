@@ -101,6 +101,9 @@
 	  <MauiXaml Update="Views\PerfilProfesionalesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\PopupWebViewPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Usuario.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

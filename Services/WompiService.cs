@@ -15,7 +15,7 @@ public class WompiService
         _publicKey = publicKey;
         _httpClient = new HttpClient
         {
-            BaseAddress = new Uri("https://sandbox.wompi.co/v1/") // Entorno de pruebas sandbox
+            BaseAddress = new Uri("https://production.wompi.co/v1/") // Entorno de pruebas sandbox
         };
 
         // Añadir el header de autorización con la clave pública

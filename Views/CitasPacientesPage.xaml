@@ -26,7 +26,7 @@
                         WidthRequest="250"
                         HeightRequest="45"
                         HorizontalOptions="Center" />
-
+            
             <!-- Etiqueta para seleccionar la hora con estilo mejorado -->
             <Label Text="Selecciona la hora de tu cita" 
                    FontSize="24"
@@ -37,18 +37,17 @@
 
             <!-- Selector de hora con estilo mejorado -->
             <Picker x:Name="HoraCitaPicker"
-                    Title="Seleccione una hora"
                     BackgroundColor="#FFFFFF"
                     TextColor="#01304C"
                     WidthRequest="250"
-                    HeightRequest="74"
+                    HeightRequest="49"
                     HorizontalOptions="Center" />
 
             <!-- Boton para confirmar la cita con estilo elegante -->
             <Button Text="Confirmar Cita" 
                     Clicked="OnConfirmarCitaClicked"
-                    BackgroundColor="#01304C"
-                    TextColor="White"
+                    BackgroundColor="#00C389"
+                    TextColor="Black"
                     FontAttributes="Bold"
                     WidthRequest="200"
                     HeightRequest="50"

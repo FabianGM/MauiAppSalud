@@ -10,7 +10,6 @@ namespace MauiAppSalud.Views;
 public partial class CitasPacientesPage : ContentPage
 {
     public string? IdProfesional { get; set; }
-
     private FechasController? cFechas = new FechasController(new SrvFechas());
     public HorarioProfesionalMod HorariosDoctores { get; set; }
 
@@ -34,16 +33,21 @@ public partial class CitasPacientesPage : ContentPage
         if (HorariosDoctores != null)
         {
             // Asignar valores al DatePicker
-            FechaCitaPicker.Date = HorariosDoctores.FechaInicio ?? DateTime.Now;  // Fecha por defecto si es nulo
+            FechaCitaPicker.Date = HorariosDoctores.FechaInicio ?? DateTime.Now;
             FechaCitaPicker.MinimumDate = HorariosDoctores.FechaInicio ?? DateTime.Now;
             FechaCitaPicker.MaximumDate = HorariosDoctores.FechaFin ?? DateTime.Now.AddDays(7);
 
             // Generar intervalos de horas
-            List<string> horasDisponibles = GenerarIntervaloHoras(HorariosDoctores.HoraInicio ?? new TimeSpan(9, 0, 0),
-                                                                  HorariosDoctores.HoraFin ?? new TimeSpan(17, 0, 0), HorariosDoctores.IntervaloHorario);
+            List<string> horasDisponibles = GenerarIntervaloHoras(
+                HorariosDoctores.HoraInicio ?? new TimeSpan(9, 0, 0),
+                HorariosDoctores.HoraFin ?? new TimeSpan(17, 0, 0),
+                HorariosDoctores.IntervaloHorario);
 
             // Asignar los intervalos de hora al Picker
             HoraCitaPicker.ItemsSource = horasDisponibles;
+
+            // Asignar una hora por defecto (primer valor de la lista)
+            HoraCitaPicker.SelectedIndex = 0;
         }
         else
         {
@@ -53,8 +57,15 @@ public partial class CitasPacientesPage : ContentPage
             FechaCitaPicker.MaximumDate = DateTime.Now.AddMonths(1); // Permitir citas en el próximo mes
 
             // Generar horarios por defecto
-            List<string> horasDisponibles = GenerarIntervaloHoras(new TimeSpan(9, 0, 0), new TimeSpan(17, 0, 0), HorariosDoctores.IntervaloHorario);
+            List<string> horasDisponibles = GenerarIntervaloHoras(
+                new TimeSpan(9, 0, 0),
+                new TimeSpan(17, 0, 0),
+                30);  // Intervalo de 30 minutos por defecto
+
             HoraCitaPicker.ItemsSource = horasDisponibles;
+
+            // Asignar una hora por defecto
+            HoraCitaPicker.SelectedIndex = 0;
         }
     }
 
@@ -62,7 +73,7 @@ public partial class CitasPacientesPage : ContentPage
     private List<string> GenerarIntervaloHoras(TimeSpan horaInicio, TimeSpan horaFin, int intervaloHorario)
     {
         List<string> horas = new List<string>();
-        TimeSpan intervalo = new TimeSpan(0, intervaloHorario, 0); // Intervalo de 30 minutos
+        TimeSpan intervalo = new TimeSpan(0, intervaloHorario, 0); // Intervalo de minutos
 
         for (TimeSpan hora = horaInicio; hora <= horaFin; hora = hora.Add(intervalo))
         {
@@ -83,13 +94,15 @@ public partial class CitasPacientesPage : ContentPage
         // Validar si se seleccionó una hora
         if (horaSeleccionada == null)
         {
-            Console.WriteLine("Por favor selecciona una hora.");
+            await DisplayAlert("Cancelado", "Por favor selecciona una hora", "OK");
             return;
         }
 
         // Combinar fecha y hora para obtener la fecha completa de la cita
-        DateTime fechaHoraCita = DateTime.Parse($"{fechaSeleccionada.ToString("yyyy-MM-dd")} {horaSeleccionada}");
+        DateTime fechaHoraCita = DateTime.Parse($"{fechaSeleccionada:yyyy-MM-dd} {horaSeleccionada}");
         Preferences.Set("fechaHoraCita", fechaHoraCita);
+
+        // Navegar a la página de pagos
         await Shell.Current.GoToAsync("pagos");
     }
 }

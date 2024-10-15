@@ -1,10 +1,9 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
-using MauiAppSalud.Controllers;
+﻿using MauiAppSalud.Controllers;
 using MauiAppSalud.Models;
 using MauiAppSalud.Models.Constantes;
 using MauiAppSalud.Services;
-using Newtonsoft.Json;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace MauiAppSalud.ViewModels
 {
@@ -45,6 +44,7 @@ namespace MauiAppSalud.ViewModels
         /// <param name="servicio">El servicio seleccionado.</param>
         private async void ContinuarConServicio(TipoAyudaMod servicio)
         {
+            Preferences.Set("idtiposervicio", servicio.IdTipoAyuda);
             await Shell.Current.GoToAsync("citasPacientes");
         }
     }
