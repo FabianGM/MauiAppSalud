@@ -39,6 +39,14 @@
 		<WindowsPackageType Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">None</WindowsPackageType>
 		<Platforms>AnyCPU;x64</Platforms>
 		<AndroidPackageFormat>apk</AndroidPackageFormat>
+		<GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+		<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+		<AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+		<AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+		<AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+		<GenerateTestArtifacts>True</GenerateTestArtifacts>
+		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+		<PackageCertificateThumbprint>2826E00BF6D398C48318C116DA3B219760F50084</PackageCertificateThumbprint>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -63,6 +71,7 @@
 	  <None Remove="Resources\Images\diana_carolina.jpg" />
 	  <None Remove="Resources\Images\jose_luis.jpg" />
 	  <None Remove="Resources\Images\juanita_puchulu.jpg" />
+	  <None Remove="Resources\Images\logo_cual_doc.jpg" />
 	  <None Remove="Resources\Images\lucia_gomez.jpg" />
 	  <None Remove="Resources\Images\maria_fernanda.jpg" />
 	  <None Remove="Resources\Images\miguel_angel.jpg" />

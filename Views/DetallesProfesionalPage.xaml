@@ -7,7 +7,14 @@
     <ScrollView>
 
         <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="FillAndExpand">
-
+            <Image Source="logo_cual_doc.jpg" 
+                     WidthRequest="50" 
+                     HeightRequest="50" 
+                     Aspect="AspectFill" 
+                     VerticalOptions="Center" 
+                     HorizontalOptions="Center" 
+                     Margin="0,0,10,0"
+                     Grid.RowSpan="2"/>
             <!-- Grid para la imagen y los labels al lado -->
             <Grid Padding="0">
                 <Grid.ColumnDefinitions>

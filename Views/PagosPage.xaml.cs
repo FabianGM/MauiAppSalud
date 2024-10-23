@@ -11,7 +11,8 @@ public partial class PagosPage : ContentPage
         { 2, "https://checkout.wompi.co/l/ViBQRx" },
         { 6, "https://checkout.wompi.co/l/9kppau" },
         { 7, "https://checkout.wompi.co/l/GaHspJ" },
-        { 8, "https://checkout.wompi.co/l/28KaHu" }
+        { 8, "https://checkout.wompi.co/l/28KaHu" },
+        { 9, "https://checkout.wompi.co/l/ViBQRx" }
     };
 
     public PagosPage()
@@ -30,7 +31,7 @@ public partial class PagosPage : ContentPage
         else
         {
             // Si no se encuentra el idTipoServicio, manejar el caso (opcional)
-            DisplayAlert("Error", "No se encontró una URL válida para el tipo de servicio.", "OK");
+            DisplayAlert("Error", "No se encontró una URL válida para el tipo de servicio.", "Aceptar");
         }
     }
 
